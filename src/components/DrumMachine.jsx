@@ -1,5 +1,51 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./DrumMachine.css";
+import FlamencoPatterns from "./FlamencoPatterns";
+import SavedPatterns from "./SavedPatterns";
+import { saveCustomPattern } from "../utils/patternStorage";
+
+// Componente para visualizar el audio
+const AudioVisualizer = ({ isPlaying }) => {
+  const canvasRef = useRef(null);
+  const animationRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (isPlaying) {
+        const bars = 16;
+        const barWidth = canvas.width / bars;
+
+        for (let i = 0; i < bars; i++) {
+          const height = Math.random() * canvas.height * 0.8;
+          ctx.fillStyle = "#e67e22";
+          ctx.fillRect(
+            i * barWidth,
+            canvas.height - height,
+            barWidth - 2,
+            height
+          );
+        }
+      }
+      animationRef.current = requestAnimationFrame(draw);
+    };
+
+    draw();
+    return () => cancelAnimationFrame(animationRef.current);
+  }, [isPlaying]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      width="800"
+      height="100"
+      style={{ width: "100%", height: "100px", marginBottom: "20px" }}
+    />
+  );
+};
 
 const DrumMachine = () => {
   const [pattern, setPattern] = useState(
@@ -51,8 +97,22 @@ const DrumMachine = () => {
     setIsPlaying(!isPlaying);
   };
 
-  // Función para guardar el patrón en la URL
+  // Función para guardar el patrón
   const savePattern = () => {
+    const patternData = {
+      pattern,
+      tempo,
+      compas,
+      swing,
+    };
+
+    // Guardar en almacenamiento local
+    const savedPattern = saveCustomPattern(patternData);
+    if (savedPattern) {
+      alert("¡Patrón guardado con éxito!");
+    }
+
+    // Guardar en URL para compartir
     const patternString = pattern
       .map((row) => row.map((cell) => (cell ? "1" : "0")).join(""))
       .join("-");
@@ -63,9 +123,6 @@ const DrumMachine = () => {
       swing ? "s" : "n"
     }-${patternString}`;
     window.history.pushState({}, "", url);
-    alert(
-      "Patrón guardado en la URL. Puedes copiar la dirección para compartirla."
-    );
   };
 
   // Función para cargar un patrón desde la URL
@@ -138,8 +195,18 @@ const DrumMachine = () => {
     loadPatternFromURL();
   }, []);
 
+  const handlePatternSelect = ({ pattern: newPattern, tempo: newTempo }) => {
+    setPattern(newPattern);
+    setTempo(newTempo);
+  };
+
   return (
     <div className="drum-machine">
+      <AudioVisualizer isPlaying={isPlaying} />
+      <div className="pattern-sections">
+        <FlamencoPatterns onSelectPattern={handlePatternSelect} />
+        <SavedPatterns onSelectPattern={handlePatternSelect} />
+      </div>
       <div className="controls">
         <div className="control">
           <label>Tempo: {tempo} BPM</label>
