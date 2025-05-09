@@ -1,42 +1,156 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: url("/fondo.webp") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Times New Roman", serif;
+  color: #333;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+@media (min-width: 768px) {
+  .app {
+    padding: 2rem;
+  }
+}
+
+h1 {
   text-align: center;
+  color: #f3e9d2;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.drum-machine {
+  background: rgba(243, 233, 210, 0.9) !important;
+  margin: 1rem auto !important;
+  padding: 1rem !important;
+  width: 95% !important;
+  max-width: 1200px !important;
+  transition: all 0.4s ease-in-out !important;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media (min-width: 768px) {
+  .drum-machine {
+    padding: 2rem !important;
+    margin: 2rem auto !important;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+.controls,
+.grid-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  padding: 1rem !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+@media (max-width: 767px) {
+  .controls {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1rem !important;
   }
 }
 
-.card {
-  padding: 2em;
+.cell {
+  background: rgba(249, 244, 237, 0.95) !important;
+  border: 2px solid #8b5511 !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  touch-action: manipulation !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-.read-the-docs {
-  color: #888;
+.cell:hover {
+  background: rgba(227, 213, 195, 0.95) !important;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cell:active {
+  transform: scale(0.95);
+}
+
+.cell.active {
+  background: rgba(193, 120, 23, 0.9) !important;
+  border-color: #5a3609 !important;
+  animation: pulseActive 0.5s ease-in-out;
+}
+
+@keyframes pulseActive {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+button {
+  background: #8b5511;
+  color: #f3e9d2;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 44px;
+  min-height: 44px;
+  touch-action: manipulation;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  background: #5a3609;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+button:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
 }

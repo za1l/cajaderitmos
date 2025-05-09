@@ -1,60 +1,138 @@
 .drum-machine {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: linear-gradient(145deg, #f3e9d2, #d8c5a6);
-  border-radius: 15px;
-  border: 3px solid #a78a6f;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  font-family: "Times New Roman", serif;
+  width: 95%;
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8f4e9, #e6d5b8);
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  .drum-machine {
+    margin: 2rem auto;
+    padding: 2rem;
+  }
 }
 
 .grid-container {
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  border: 2px solid #a78a6f;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  border: none;
   padding: 1.5rem;
   margin-top: 1.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
 }
 
 .sound-row {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: nowrap;
+}
+
+@media (min-width: 768px) {
+  .sound-row {
+    margin-bottom: 1rem;
+  }
 }
 
 .sound-label {
-  width: 80px;
-  font-weight: bold;
+  min-width: 70px;
+  width: auto;
+  font-weight: 600;
   color: #5a463a;
-  text-align: right;
+  text-align: left;
   padding-right: 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .sound-label {
+    width: 80px;
+    text-align: right;
+    padding-right: 1rem;
+    font-size: 1rem;
+  }
 }
 
 .step-row {
   display: flex;
   flex-grow: 1;
-  gap: 0.25rem;
+  gap: 0.15rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+@media (min-width: 768px) {
+  .step-row {
+    gap: 0.25rem;
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+}
+
+.step-row::-webkit-scrollbar {
+  height: 4px;
+}
+
+.step-row::-webkit-scrollbar-track {
+  background: rgba(167, 138, 111, 0.1);
+  border-radius: 2px;
+}
+
+.step-row::-webkit-scrollbar-thumb {
+  background: rgba(167, 138, 111, 0.5);
+  border-radius: 2px;
+}
+
+.step-row::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 138, 111, 0.7);
 }
 
 .cell {
-  width: 40px;
-  height: 40px;
-  background-color: #f9f4ed;
-  border: 1px solid #a78a6f;
-  border-radius: 4px;
+  width: 45px;
+  height: 45px;
+  background-color: #ffffff;
+  border: 2px solid #e6d5b8;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
 .cell:hover {
-  background-color: #e3d5c3;
-  transform: scale(1.05);
+  background-color: #f8f4e9;
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #c17817;
 }
 
 .cell.active {
   background-color: #c17817;
-  border-color: #8b5511;
+  border-color: #c17817;
+  box-shadow: 0 0 15px rgba(193, 120, 23, 0.4);
+  transform: scale(1.05);
 }
 
 .cell.current {
@@ -64,13 +142,16 @@
 .controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  border: 2px solid #a78a6f;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  border: none;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
 }
 
 .control {
@@ -80,47 +161,100 @@
 }
 
 .control label {
-  font-weight: bold;
+  font-weight: 600;
   color: #5a463a;
-  min-width: 60px;
+  min-width: 70px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
 
 .control input[type="range"] {
-  width: 120px;
+  width: 140px;
+  height: 6px;
+  -webkit-appearance: none;
+  background: linear-gradient(to right, #c17817, #e6d5b8);
+  border-radius: 3px;
+  outline: none;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+
+.control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  border: 2px solid #c17817;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.control input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  background: #c17817;
+  border-color: #ffffff;
+}
+
+.control input[type="range"]:focus {
+  opacity: 1;
 }
 
 .control select {
-  padding: 0.3rem;
-  border-radius: 4px;
-  border: 1px solid #a78a6f;
-  background-color: #f9f4ed;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 2px solid #e6d5b8;
+  background-color: #ffffff;
+  font-size: 0.95rem;
+  color: #5a463a;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control select:hover {
+  border-color: #c17817;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.control select:focus {
+  outline: none;
+  border-color: #c17817;
+  box-shadow: 0 0 0 2px rgba(193, 120, 23, 0.2);
 }
 
 .control-btn {
-  padding: 0.5rem 1rem;
-  background-color: #a78a6f;
+  padding: 0.75rem 1.5rem;
+  background-color: #c17817;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(193, 120, 23, 0.2);
 }
 
 .control-btn:hover {
-  background-color: #8b7259;
+  background-color: #d68b1a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(193, 120, 23, 0.3);
 }
 
 /* Estilos para diferentes compases */
-.compas-4-4 .cell:nth-child(4n+1),
-.compas-4-4 .cell:nth-child(4n+1) {
+.compas-4-4 .cell:nth-child(4n + 1),
+.compas-4-4 .cell:nth-child(4n + 1) {
   border-left: 2px solid #5a463a;
 }
 
-.compas-3-4 .cell:nth-child(3n+1) {
+.compas-3-4 .cell:nth-child(3n + 1) {
   border-left: 2px solid #5a463a;
 }
 
-.compas-6-8 .cell:nth-child(6n+1) {
+.compas-6-8 .cell:nth-child(6n + 1) {
   border-left: 2px solid #5a463a;
 }
