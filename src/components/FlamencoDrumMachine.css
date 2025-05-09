@@ -1,0 +1,103 @@
+.drum-machine {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 3rem;
+  background: linear-gradient(145deg, #f3e9d2, #d8c5a6);
+  border-radius: 15px;
+  border: 3px solid #a78a6f;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  font-family: 'Times New Roman', serif;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  border: 2px solid #a78a6f;
+  margin-top: 2rem;
+}
+
+.cell {
+  padding: 1.5rem;
+  background-color: #f9f4ed;
+  border: 2px solid #a78a6f;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  color: #5a463a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.cell:hover {
+  background-color: #e3d5c3;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.controls {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  border: 2px solid #a78a6f;
+  justify-content: center;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control input[type="range"] {
+  width: 150px;
+}
+
+.cell:hover {
+  background-color: #e0e0e0;
+}
+
+.palos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.palo-card {
+  padding: 1.5rem;
+  background-color: #f9f4ed;
+  border: 2px solid #a78a6f;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.palo-card:hover {
+  background-color: #e3d5c3;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.palo-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.palo-card p {
+  margin: 0;
+  color: #666;
+}
